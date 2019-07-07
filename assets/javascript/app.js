@@ -10,7 +10,15 @@ Then, we need to create function to create gifs and add them to html page
 let gifs = ["Cat", "Parot"];
 
 // we have to build the url based off of user input (array?) and link...
-
+let searchGifs = function(gif) {
+    let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response);
+    });
+  };
 
 
 
@@ -21,24 +29,21 @@ $("#add-gif").on("click", function (e) {
     e.preventDefault();
 
     // Grab the text from the input box and store in a variable
-    let gif = $("#gif-input").val();
+    let newGif  = $("#gif-input").val();
 
-    // Push that new gif to the array
-    gifs.push(gif);
+    // set variable to current gif? 
+    searchGifs(newGif);
 
-    console.log(gif);
+    // Push that new gif to the array but I'm not getting the damn value for some reason!
+    gifs.push(newGif);
+
+    console.log(newGif);
 
 
     // Url def works with a search value in there and the rest of the URl, checked in browser
-    let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
+    // let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
-        $(response).prepend("#gifs-view");
-    });
+   
 
 
     // Call our button function which should handle creating the buttons

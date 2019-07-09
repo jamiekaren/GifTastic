@@ -1,24 +1,57 @@
 console.log("Working...");
 
-/*
-Ok, so we need to create buttons and add them to the page with the                                                                                                                                                                                 
-Then, we need to create function to create gifs and add them to html page
-
-*/
 
 //An array to hold the gifs
-let gifs = ["Cat", "Parot"];
+let gifs = ["Thor", "Captain America", ""];
 
 // we have to build the url based off of user input (array?) and link...
-let searchGifs = function(gif) {
-    let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
+let searchGifs = function (gif) {
+    let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=10" + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
     $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-      console.log(response);
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        
+        let newImage = $("<img>");
+        let imageURL = response.data.fixed_height;
+        let dataStill = response.data.original_still;
+        let rating = response.data.rating;
+
+        newImage.attr("src", imageURL);
+        newImage.attr("data-still", dataStill );
+        newImage.attr("data-animate", imageURL);
+        newImage.attr("data-state", "still");
+        newImage.prepend(rating);
+
+        console.log(newImage);
+
+        $("#gifs-view").prepend(newImage);
+
     });
-  };
+};
+
+
+
+//Function to display the gif buttons up top
+function renderButtons() {
+
+    $("#buttons-view").empty();
+
+    for (let i = 0; i < gifs.length; i++) {
+
+        
+        let newButton = $("<button>");
+
+        newButton.addClass("gif");
+
+        newButton.attr("data-name", this.val)
+
+        $("#buttons-view").append(newButton);
+    }
+};
+
+renderButtons();
 
 
 
@@ -29,51 +62,22 @@ $("#add-gif").on("click", function (e) {
     e.preventDefault();
 
     // Grab the text from the input box and store in a variable
-    let newGif  = $("#gif-input").val();
+    //Clearly I am not capture the value correctly--- why? 
+    let newGif = $("input").val();
 
+    // Call our button function which should handle creating the buttons
+    //for our array
+    renderButtons();
+    console.log(newGif);
+
+    // var text = $('#DynamicValueAssignedHere').find('input[name="FirstName"]').val();
     // set variable to current gif? 
     searchGifs(newGif);
 
     // Push that new gif to the array but I'm not getting the damn value for some reason!
     gifs.push(newGif);
 
-    console.log(newGif);
-
-
-    // Url def works with a search value in there and the rest of the URl, checked in browser
-    // let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
-
-   
-
-
-    // Call our button function which should handle creating the buttons
-    //for our array
-    renderButtons();
-
-
+    
 });
 
 
-//Function to display the gif buttons up top
-function renderButtons() {
-
-    // Deleting gif buttons before adding new ones, so they don't repeat
-    $("#buttons-view").empty();
-
-    //iterate through the gif array
-    // variable is our initialization/counter, next our condition
-    // then our update to our counter
-    for (let i = 0; i < gifs.length; i++) {
-
-        // Then we generate buttons for each gif in the array.
-        let newButton = $("<button>");
-        //Then we add a class
-        newButton.addClass("gif");
-        // Then we add a data-attribute with value set to movie at index i
-        newButton.attr("data-name", gif[i]);
-        //Providing the button's text with a value of movie at index i
-        newButton.text(gif[i]);
-        //Adding the button to the HTML
-        $("#buttons-view").append(newButton);
-    }
-};

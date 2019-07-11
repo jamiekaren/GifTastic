@@ -1,4 +1,4 @@
-# Aveneger's Gif Tastic App Creator
+# Avenger's Gif Tastic App Creator
 
 This app will let you explore the various Avenger character buttons at the top to generate a random 10 gifs to the page for your viewing pleasure. You also have the option to add a topic yourself.
 

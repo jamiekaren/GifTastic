@@ -4,32 +4,44 @@ console.log("Working...");
 //An array to hold the gifs
 let gifs = ["Thor", "Captain America", ""];
 
+
 // we have to build the url based off of user input (array?) and link...
-let searchGifs = function (gif) {
+function searchGifs(gif) {
     let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=10" + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
-        
-        let newImage = $("<img>");
-        let imageURL = response.data.fixed_height;
-        let dataStill = response.data.original_still;
-        let rating = response.data.rating;
 
-        newImage.attr("src", imageURL);
-        newImage.attr("data-still", dataStill );
-        newImage.attr("data-animate", imageURL);
-        newImage.attr("data-state", "still");
-        newImage.prepend(rating);
+        //store data into variable 
+        let data_array = response.data;
 
-        console.log(newImage);
+        //check what data we are getting back
+        console.log(data_array);
 
-        $("#gifs-view").prepend(newImage);
+        //iteriate through each object in array to create images
+        data_array.forEach(function (entry) {
 
+            let newImage = $("<img>");
+            let imageURL = entry.images.fixed_height.url;
+            let dataStill = entry.images.original_still.url;
+            let rating = entry.rating;
+
+            newImage.attr("src", dataStill);
+
+            newImage.attr("data-state", "still");
+            newImage.attr("data-still", dataStill);
+            newImage.attr("data-animate", imageURL);
+
+            newImage.prepend(rating);
+            $("#gifs-view").prepend(newImage);
+
+        });
     });
 };
+
+
+searchGifs("Hawkeye");
 
 
 
@@ -38,46 +50,41 @@ function renderButtons() {
 
     $("#buttons-view").empty();
 
-    for (let i = 0; i < gifs.length; i++) {
+    gifs.forEach(function () {
 
-        
         let newButton = $("<button>");
 
         newButton.addClass("gif");
 
-        newButton.attr("data-name", this.val)
+        newButton.attr("data-name", this.val);
 
         $("#buttons-view").append(newButton);
-    }
-};
 
-renderButtons();
+    });
 
-
-
-// Now a function to handle when button is clicked
-$("#add-gif").on("click", function (e) {
-    //event.preventDefault() , prevents form trying to submit itself.
-    //Using a form so user can hit enter insted of clicking
-    e.preventDefault();
-
-    // Grab the text from the input box and store in a variable
-    //Clearly I am not capture the value correctly--- why? 
-    let newGif = $("input").val();
-
-    // Call our button function which should handle creating the buttons
-    //for our array
     renderButtons();
-    console.log(newGif);
-
-    // var text = $('#DynamicValueAssignedHere').find('input[name="FirstName"]').val();
-    // set variable to current gif? 
-    searchGifs(newGif);
-
-    // Push that new gif to the array but I'm not getting the damn value for some reason!
-    gifs.push(newGif);
-
-    
-});
 
 
+
+    // Now an on-click function to handle when button is clicked
+    $("#add-gif").on("click", function (e) {
+        //event.preventDefault() , prevents form trying to submit itself.
+        //Using a form so user can hit enter insted of clicking
+        e.preventDefault();
+
+        // Grab the text from the input box and store in a variable
+        //Clearly I am not capture the value correctly--- why? 
+        let newGif = $("input").val();
+
+        gifs.push(newGif);
+
+        // Call our button function which should handle creating the buttons
+        //for our array
+        renderButtons();
+        console.log(newGif);
+
+        // Now also call our APAX function so that we make the new gifs append to the page
+        searchGifs(newGif);
+
+
+    });

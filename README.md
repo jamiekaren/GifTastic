@@ -8,4 +8,4 @@ This app will let you explore the various Avenger character buttons at the top t
 - Clicking a generated gif will make it move, click again to pause it.
 
 ## Developer Notes
-Please note this app is still in the process of development and ahs many bugs as of yet. If you submit something other than Avengers it will still work, but I'll probably respect you less.
+Please note this app is still in the process of development and has many bugs as of yet. If you submit something other than Avengers it will still work, but I'll probably respect you less.

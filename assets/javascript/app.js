@@ -26,15 +26,17 @@ function searchGifs(gif) {
             let imageURL = entry.images.fixed_height.url;
             let dataStill = entry.images.original_still.url;
             let rating = entry.rating;
+            //check rating output - it's working
+            console.log(rating);
 
             newImage.attr("src", dataStill);
 
             newImage.attr("data-state", "still");
             newImage.attr("data-still", dataStill);
             newImage.attr("data-animate", imageURL);
+            newImage.attr("data-rating", rating);
 
-            newImage.prepend(rating);
-            $("#gifs-view").prepend(newImage);
+            $("#gifs-view").prepend(newImage).prepend("<h2>" + rating);
 
         });
     });

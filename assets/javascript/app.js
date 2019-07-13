@@ -86,5 +86,6 @@ function renderButtons() {
         // Now also call our APAX function so that we make the new gifs append to the page
         searchGifs(newGif);
 
-
     });
+
+};

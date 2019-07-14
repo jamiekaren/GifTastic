@@ -62,32 +62,37 @@ function renderButtons() {
 
         $("#buttons-view").append(newButton);
 
+        renderButtons();
+        
+
     });
 
     renderButtons();
 
 
 
-    // Now an on-click function to handle when button is clicked
-    $("#add-gif").on("click", function (e) {
-        //event.preventDefault() , prevents form trying to submit itself.
-        //Using a form so user can hit enter insted of clicking
-        e.preventDefault();
+    // // Now an on-click function to handle when button is clicked
+    // $("#add-gif").on("click", function (e) {
+    //     //event.preventDefault() , prevents form trying to submit itself.
+    //     //Using a form so user can hit enter insted of clicking
+    //     e.preventDefault();
 
-        // Grab the text from the input box and store in a variable
-        //Clearly I am not capture the value correctly--- why? 
-        let newGif = $("input").val();
+    //     // Grab the text from the input box and store in a variable
+    //     //Clearly I am not capture the value correctly--- why? 
+    //     let newGif = $("input").val();
 
-        gifs.push(newGif);
+    //     gifs.push(newGif);
 
-        // Call our button function which should handle creating the buttons
-        //for our array
-        renderButtons();
-        console.log(newGif);
+    //     // Call our button function which should handle creating the buttons
+    //     //for our array
+    //     renderButtons();
+    //     console.log(newGif);
 
-        // Now also call our APAX function so that we make the new gifs append to the page
-        searchGifs(newGif);
+    //     // Now also call our APAX function so that we make the new gifs append to the page
+    //     searchGifs(newGif);
 
-    });
+    // });
 
 };
+
+

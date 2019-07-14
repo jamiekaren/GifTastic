@@ -7,7 +7,7 @@ let gifs = ["Thor", "Captain America", ""];
 
 // we have to build the url based off of user input (array?) and link...
 function searchGifs(gif) {
-    let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=10" + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
+    let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=10" + "&api_key=xO21dEI2EXTWHMEZju3HSOteEK4SeMKo";
     $.ajax({
         url: queryURL,
         method: "GET"

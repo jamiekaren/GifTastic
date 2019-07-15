@@ -16,8 +16,8 @@ function searchGifs(gif) {
         //store data into variable 
         let data_array = response.data;
 
-        //check what data we are getting back
-        console.log(data_array);
+        // //check what data we are getting back
+        // console.log(data_array);
 
         //iteriate through each object in array to create images
         data_array.forEach(function (entry) {
@@ -27,7 +27,7 @@ function searchGifs(gif) {
             let dataStill = entry.images.original_still.url;
             let rating = entry.rating;
             //check rating output - it's working
-            console.log(rating);
+            // console.log(rating);
 
             newImage.attr("src", dataStill);
 
@@ -36,9 +36,13 @@ function searchGifs(gif) {
             newImage.attr("data-animate", imageURL);
             newImage.attr("data-rating", rating);
 
+            //It doesn't look pretty but it works
             $("#gifs-view").prepend(newImage).prepend("<h2>" + rating);
+            renderButtons();
 
-        });
+        }); //array iteration ends here
+
+        // try to add your renderButtons() after it
     });
 };
 
@@ -55,6 +59,9 @@ searchGifs("Hawkeye");
 
 //         let newButton = $("<button>");
 //         newButton.addClass("gif");
+
+//         console.log(newButton);
+
 //         newButton.attr("data-name", entry.val);
 //         newButton.text(entry.val);
 //         $("#buttons-view").append(newButton);
@@ -68,51 +75,63 @@ searchGifs("Hawkeye");
 
 function renderButtons() {
 
-    // Deleting the movies prior to adding new movies
+    // Deleting the gifs prior to adding new movies
     // (this is necessary otherwise we will have repeat buttons)
     $("#buttons-view").empty();
 
-    // Looping through the array of movies
-    for (var i = 0; i < gifs.length; i++) {
+    // Looping through the array 
+    for (let i = 0; i < gifs.length; i++) {
 
-      // Then dynamicaly generating buttons for each movie in the array
-      // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-      var a = $("<button>");
-      // Adding a class of movie to our button
-      a.addClass("gif");
-      // Adding a data-attribute
-      a.attr("data-name", gifs[i]);
-      // Providing the initial button text
-      a.text(gifs[i]);
-      // Adding the button to the HTML
-      $("#buttons-view").append(a);
-     
+        // Then dynamicaly generating buttons for each movie in the array
+        // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
+        let a = $("<button>");
+
+        //add a class
+        a.attr("id", "gButton");
+        // Adding a data-attribute
+        a.attr("data-name", gifs[i]);
+        // Providing the initial button text
+        a.text(gifs[i]);
+        // Adding the button to the HTML
+        $("#buttons-view").append(a);
+
     }
-  }
-  renderButtons();
+}
+
+// //make buttons we have already
+renderButtons();
 
 
-    // Now an on-click function to handle when button is clicked
-    $("#add-gif").on("click", function () {
-        //event.preventDefault() , prevents form trying to submit itself.
-        //Using a form so user can hit enter insted of clicking
-        // e.preventDefault();
+$("#gButton").click(function () {
+    bGif = $(this).attr("data-name");
 
-        // Grab the text from the input box and store in a variable
-        //Clearly I am not capture the value correctly--- why? 
-        let newGif = $("gif-input").val();
+    //Let's console log our data name
+    console.log("This is data name on button click" + bGif);
 
-        gifs.push(newGif);
+    searchGifs(bGif);
+});
 
-        // Call our button function which should handle creating the buttons
-        //for our array
-        renderButtons();
-        console.log(newGif);
 
-        // Now also call our APAX function so that we make the new gifs append to the page
-        searchGifs(newGif);
+// Now an on-click function to handle when button is clicked
+$("#gif-movie").click(function (event) {
+    event.preventDefault()
+    // prevents form trying to submit itself.
+    console.log("These are your current gif array"+ gifs);
 
-    });
+    let newGif = $("gif-input").val();
+    console.log("Let's console our value from input" + newGif);
+
+    gifs.push(newGif);
+
+    // Call our button function which should handle creating the buttons
+    //for our array
+    renderButtons();
+
+
+    // Now also call our APAX function so that we make the new gifs append to the page
+    searchGifs(newGif);
+
+});
 
 
 

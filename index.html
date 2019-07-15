@@ -9,7 +9,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <title>The Gif-Tastic App</title> 
+    <title>The Gif-Tastic App</title>
 </head>
 
 <body>
@@ -23,22 +23,33 @@
         <div id="buttons-view"></div>
 
         <div class="row">
-                        <!-- Form to create text area to enter gif from user-->
+
+            <form id="gif-form">
+                <label for="gif-input">Add a Gif, Yo!</label>
+                <input type="text" id="gif-input"><br>
+
+                <!-- Button triggers new movie to be added -->
+                <input id="gif-movie" type="submit" value="Add a Gif, Yo!">
+            </form>
+
+
+
+            <!-- Form to create text area to enter gif from user
             <div class="col" id="form-area">
                 <form id="gif-form">
                     <label id="gif-input">Add a gif!</label>
                     
 
-                    <!-- Button to trigger new gif-->
-                    <input id="add-gif""></input>
+             <input id="add-gif""></input>
                 </form>
             </div>
-            <div class="row"></div>
+            <div class=" row">
+        </div> -->
 
-            <!-- Gif View Area-->
-            <div class="row" id="gifs-view"></div>
+        <!-- Gif View Area-->
+        <div class="row" id="gifs-view"></div>
 
-        </div>
+    </div>
 
 
 

@@ -74,12 +74,15 @@ function searchGifs(gif) {
 
 function renderButtons() {
 
-    // Deleting the gifs prior to adding new movies
+    // // Deleting the gifs prior to adding new movies
     $("#buttons-view").empty();
 
     // Looping through the array 
     for (let i = 0; i < gifs.length; i++) {
 
+        // $("#dynbtn" + i).remove();
+
+        // $("#buttons-view").remove("dynbtn" + i);
         // Then dynamicaly generating buttons for each movie in the array
         let button = $("<button>");
         // Add an id
@@ -98,9 +101,7 @@ renderButtons();
 
 
 
-
-
-$("#buttons-view :button").click(function () {
+$("#buttons-view").on("click", "button", function () {
 
     console.log("Test");
 
@@ -110,35 +111,36 @@ $("#buttons-view :button").click(function () {
     console.log("This is data name on button click" + bGif);
 
     searchGifs(bGif);
-    // });
+});
 
 
-    // Now an on-click function to handle when button is clicked
-    $("form").submit(function () {
-
+// Now an on-click function to handle when button is clicked
+$("form").submit(function (event) {
 
     // $("").click(function (event) {
-    //     event.preventDefault()
+    event.preventDefault()
     //     // prevents form trying to submit itself.
-        console.log("form working!");
-        
-        // console.log("These are your current gif array" + gifs[0]);
+    console.log("form working!");
 
-        let newGif = $("gif-input").val();
+    // console.log("These are your current gif array" + gifs[0]);
 
-        console.log("Let's console our value from input" + newGif);
+    let newGif = $("#gif-input").val();
 
-        // gifs.push(newGif);
+    // $("#gif-input").val().empty();
 
-        // // Call our button function which should handle creating the buttons
-        // //for our array
-        // renderButtons();
+    console.log("Let's console our value from input " + newGif);
 
-        // // Now also call our APAX function so that we make the new gifs append to the page
-        // searchGifs(newGif);
-    });
+    gifs.push(newGif);
+    
+    // // Call our button function which should handle creating the buttons
+    // //for our array
+    renderButtons();
 
+    // // Now also call our APAX function so that we make the new gifs append to the page
+    // searchGifs(newGif);
 });
+
+
 
 
 

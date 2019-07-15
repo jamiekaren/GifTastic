@@ -30,7 +30,6 @@ function searchGifs(gif) {
             // console.log(rating);
 
             newImage.attr("src", dataStill);
-
             newImage.attr("data-state", "still");
             newImage.attr("data-still", dataStill);
             newImage.attr("data-animate", imageURL);
@@ -38,16 +37,16 @@ function searchGifs(gif) {
 
             //It doesn't look pretty but it works
             $("#gifs-view").prepend(newImage).prepend("<h2>" + rating);
-            renderButtons();
 
         }); //array iteration ends here
 
         // try to add your renderButtons() after it
+
     });
 };
 
-//to test out gifs
-searchGifs("Hawkeye");
+// //to test out gifs
+// searchGifs("Hawkeye");
 
 
 // //Function to display the gif buttons up top
@@ -76,24 +75,20 @@ searchGifs("Hawkeye");
 function renderButtons() {
 
     // Deleting the gifs prior to adding new movies
-    // (this is necessary otherwise we will have repeat buttons)
     $("#buttons-view").empty();
 
     // Looping through the array 
     for (let i = 0; i < gifs.length; i++) {
 
         // Then dynamicaly generating buttons for each movie in the array
-        // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-        let a = $("<button>");
-
-        //add a class
-        a.attr("id", "gButton");
+        let button = $("<button>");
+        // Add an id
+        button.attr('id', 'dynbtn' + i);
         // Adding a data-attribute
-        a.attr("data-name", gifs[i]);
+        button.attr("data-name", gifs[i]);
         // Providing the initial button text
-        a.text(gifs[i]);
-        // Adding the button to the HTML
-        $("#buttons-view").append(a);
+        button.text(gifs[i]);
+        $("#buttons-view").append(button);
 
     }
 }
@@ -102,34 +97,46 @@ function renderButtons() {
 renderButtons();
 
 
-$("#gButton").click(function () {
+
+
+
+$("#buttons-view :button").click(function () {
+
+    console.log("Test");
+
     bGif = $(this).attr("data-name");
 
     //Let's console log our data name
     console.log("This is data name on button click" + bGif);
 
     searchGifs(bGif);
-});
+    // });
 
 
-// Now an on-click function to handle when button is clicked
-$("#gif-movie").click(function (event) {
-    event.preventDefault()
-    // prevents form trying to submit itself.
-    console.log("These are your current gif array"+ gifs);
-
-    let newGif = $("gif-input").val();
-    console.log("Let's console our value from input" + newGif);
-
-    gifs.push(newGif);
-
-    // Call our button function which should handle creating the buttons
-    //for our array
-    renderButtons();
+    // Now an on-click function to handle when button is clicked
+    $("form").submit(function () {
 
 
-    // Now also call our APAX function so that we make the new gifs append to the page
-    searchGifs(newGif);
+    // $("").click(function (event) {
+    //     event.preventDefault()
+    //     // prevents form trying to submit itself.
+        console.log("form working!");
+        
+        // console.log("These are your current gif array" + gifs[0]);
+
+        let newGif = $("gif-input").val();
+
+        console.log("Let's console our value from input" + newGif);
+
+        // gifs.push(newGif);
+
+        // // Call our button function which should handle creating the buttons
+        // //for our array
+        // renderButtons();
+
+        // // Now also call our APAX function so that we make the new gifs append to the page
+        // searchGifs(newGif);
+    });
 
 });
 

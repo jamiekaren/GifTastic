@@ -30,6 +30,7 @@ function searchGifs(gif) {
             // console.log(rating);
 
             newImage.attr("src", dataStill);
+            newImage.attr("class", "gif");
             newImage.attr("data-state", "still");
             newImage.attr("data-still", dataStill);
             newImage.attr("data-animate", imageURL);
@@ -137,8 +138,25 @@ $("form").submit(function (event) {
     renderButtons();
 
     // // Now also call our APAX function so that we make the new gifs append to the page
-    // searchGifs(newGif);
+    searchGifs(newGif);
 });
+
+$("#gifs-view").on("click", "img", function() {
+    console.log("image click working!");
+
+    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    let state = $(this).attr("data-state");
+    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    // Then, set the image's data-state to animate
+    // Else set src to the data-still value
+    if (state === "still") {
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animate");
+    } else {
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
+    }
+  });
 
 
 
